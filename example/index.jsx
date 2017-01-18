@@ -113,6 +113,17 @@ const Index = React.createClass({
         color: '#78818b',
         label: 'Unavailable',
       },
+      discount: {
+        color: '#90EE90',
+        label: 'Discount',
+        priority: 2,
+      },
+      superdiscount: {
+        selectable: false,
+        priority: 3,
+        color: '#EBEE90',
+        label: 'Super promo discount',
+      },
     };
 
     const dateRanges = [
@@ -128,6 +139,22 @@ const Index = React.createClass({
         range: moment.range(
           moment().add(3, 'weeks'),
           moment().add(3, 'weeks').add(5, 'days')
+
+        ),
+      },
+      {
+        state: 'discount',
+        range: moment.range(
+          moment().add(5, 'weeks').subtract(5, 'days'),
+          moment().add(5, 'weeks').add(6, 'days')
+        ),
+      },
+      {
+        state: 'superdiscount',
+        range: moment.range(
+          moment().add(5, 'weeks').subtract(1, 'days'),
+          moment().add(5, 'weeks').add(1, 'days')
+
         ),
       },
     ];

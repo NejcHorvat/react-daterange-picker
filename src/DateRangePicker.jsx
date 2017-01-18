@@ -181,6 +181,7 @@ const DateRangePicker = React.createClass({
         state: s.state,
         selectable: def.get('selectable', true),
         color: def.get('color'),
+        priority: def.get('priority', 1),
       });
     });
   },
@@ -198,7 +199,18 @@ const DateRangePicker = React.createClass({
   },
 
   dateRangesForDate(date) {
-    return this.state.dateStates.filter(d => d.get('range').contains(date));
+    let priority = 1;
+    return this.state.dateStates.reduce((newList, d ) => {
+        if(d.get('range').contains(date)){
+            if(d.get('priority') > priority){
+                priority = d.get('priority')
+                return Immutable.List([d]);
+            }else if(d.get('priority') ==  priority){
+                return newList.push(d)
+            }
+        }
+        return newList;
+    }, Immutable.List());
   },
 
   sanitizeRange(range, forwards) {
